@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
             break;
         }
 
-        buffer[n] = '\0';
+        //buffer[n] = '\0';
 
         printf("From server: %s", buffer);
         fflush(stdout);
