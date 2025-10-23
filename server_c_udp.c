@@ -82,7 +82,7 @@ int main(int argc, char *argv[]){
     //This section of code was borrowed from the example at https://www.linuxhowtos.org/data/6/server_udp.c
     clientlen = sizeof(struct sockaddr_in);
     while (1) {
-        msgReceive = recvfrom(sock, buf, 128, 0, (struct sockaddr *)&client, &clientlen);
+        msgReceive = recvfrom(sock, buf, 130, 0, (struct sockaddr *)&client, &clientlen);
         if (msgReceive < 0){
             error("recvfrom");
         } 
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]){
         //Write data to the socket (the server response)
         //Loop here
 
-        char currMsg[128];
+        char currMsg[130];
         strncpy(currMsg, buf, sizeof(currMsg));
         currMsg[sizeof(currMsg)-1] = '\0';
 
