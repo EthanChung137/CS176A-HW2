@@ -56,26 +56,25 @@ int main(int argc, char *argv[])
     
     //Response loop
     while (1) {
-        bzero(buffer,BUFFERSIZE);
-        n = read(sockfd,buffer,BUFFERSIZE-1);
-        if (n < 0) 
+        memset(buffer, 0, sizeof(buffer));
+        n = read(sockfd, buffer, sizeof(buffer) - 1);
+        if (n < 0)
             error("ERROR reading from socket");
+        if (n == 0) { 
+            break;
+        }
 
-        printf("%s\n",buffer);
+        buffer[n] = '\0';
+
+        printf("From server: %s", buffer);
+        fflush(stdout);
+
         if (strncmp(buffer, "Sorry, cannot compute!", 22) == 0) {
             break;
         }
-        if (strlen(buffer) == 2 && isdigit(buffer[0])) {
+        if (strlen(buffer) == 2 && isdigit((unsigned char)buffer[0])) {
             break;
         }
-        
-        buffer[n] = '\0';
-        printf("Enter string: ");
-        bzero(buffer,BUFFERSIZE);
-        fgets(buffer,BUFFERSIZE-1,stdin);
-        n = write(sockfd,buffer,strlen(buffer));
-        if (n < 0) 
-            error("ERROR writing to socket");
     }
     close(sockfd);
     return 0;
