@@ -17,7 +17,7 @@ void error(const char *msg)
     exit(0);
 }
 
-
+//UDP Client skeleton from https://www.linuxhowtos.org/data/6/client_udp.c
 int main(int argc, char *argv[])
 {
     int sock, n;

@@ -7,23 +7,24 @@
     #include <sys/types.h> 
     #include <sys/socket.h>
     #include <netinet/in.h>
+    #include <ctype.h>
 
     //From https://www.linuxhowtos.org/data/6/server.c
-    void error(const char *msg)
-    {
-    perror(msg);
-    exit(1);
+    void error(const char *msg) {
+        perror(msg);
+        exit(1);
     }
 
     //Copied from server_c_udp.c
     const char* msgToSum(const char *msg) {
     static char sumStr[130];
     int sum = 0;
-    int i = 0;
 
     //Triming leading and trailing whitespace
     int start = 0;
-    while (isspace((unsigned char)msg[start])) start++;
+    while ((isspace((unsigned char)msg[start]))) {
+        start++;
+    } 
 
     int end = strlen(msg) - 1;
     while (end >= start && isspace((unsigned char)msg[end])) end--;
@@ -34,7 +35,7 @@
     }
 
     for (int i = start; i <= end; i++) {
-        if (!isdigit((unsigned char)msg[i])) {
+        if (!(isdigit((unsigned char)msg[i]))) {
             snprintf(sumStr, sizeof(sumStr), "Sorry, cannot compute!\n");
             return sumStr;
         }
@@ -51,7 +52,6 @@
         int sockfd, newsockfd, portno;
         socklen_t clilen;
         char buf[1024];
-        char* msg;
         struct sockaddr_in serv_addr, cli_addr;
         int n;
         if (argc < 2) {
