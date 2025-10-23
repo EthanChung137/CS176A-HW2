@@ -20,25 +20,24 @@ const char* msgToSum(const char *msg) {
     int sum = 0;
     int i = 0;
 
-    //Checking for empty string
-    if (msg[i] == '\0') { 
+    //Triming leading and trailing whitespace
+    int start = 0;
+    while (isspace((unsigned char)msg[start])) start++;
+
+    int end = strlen(msg) - 1;
+    while (end >= start && isspace((unsigned char)msg[end])) end--;
+
+    if (start > end) {
         snprintf(sumStr, sizeof(sumStr), "Sorry, cannot compute!\n");
         return sumStr;
     }
 
-    while (isdigit((unsigned char)msg[i])) {
-        sum += (msg[i] - '0');
-        i++;
-    }
-
-
-    //Checking for non-whitespace characters after the string of numbers
-    while (msg[i] != '\0') {
-        if (!isspace((unsigned char)msg[i])) {
+    for (int i = start; i <= end; i++) {
+        if (!isdigit((unsigned char)msg[i])) {
             snprintf(sumStr, sizeof(sumStr), "Sorry, cannot compute!\n");
             return sumStr;
         }
-        i++;
+        sum += msg[i] - '0';
     }
 
     snprintf(sumStr, sizeof(sumStr), "%d\n", sum);
