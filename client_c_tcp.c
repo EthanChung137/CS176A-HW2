@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
             break;
         }
         
-        // Prepare for the next iteration
+        buffer[n] = '\0';
         printf("Enter string: ");
         bzero(buffer,BUFFERSIZE);
         fgets(buffer,BUFFERSIZE-1,stdin);

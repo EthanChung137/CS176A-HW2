@@ -87,7 +87,7 @@
             }
             buf[n] = '\0';
             //For debugging purposes
-            printf("Here is the message: %s\n",buf);
+            //printf("Here is the message: %s\n",buf);
 
             char currMsg[130];
             strncpy(currMsg, buf, sizeof(currMsg) - 1);
