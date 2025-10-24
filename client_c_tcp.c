@@ -65,18 +65,27 @@ int main(int argc, char *argv[])
         }
 
         buffer[n] = '\0';
-
-        //Removing any '\r' characters due to its ability to "overwrite" the "From server: " message
-        int i, k = 0;
-        for (i = 0; buffer[i] != '\0'; i++) {
-            if (buffer[i] != '\r' && buffer[i] != '\n') {
-                buffer[k++] = buffer[i];
+        int start = 0;
+        for (int i = 0; i <= n; i++) {
+            if (buffer[i] == '\n' || buffer[i] == '\0') {
+                int end = i - 1;
+                // Trim trailing '\r' characters 
+                while (end >= start && buffer[end] == '\r'){
+                    end--;
+                } 
+                if (end >= start) {
+                    char saved = buffer[end+1];
+                    buffer[end+1] = '\0';
+                    printf("From server: %s\n", &buffer[start]);
+                    buffer[end+1] = saved;
+                } else {
+                    //Handling empty line case
+                    printf("From server:\n");
+                }
+                fflush(stdout);
+                start = i + 1;
             }
         }
-        buffer[k] = '\0';
-
-        printf("From server: %s\n", buffer);
-        fflush(stdout);
 
         if (strncmp(buffer, "Sorry, cannot compute!", 22) == 0) {
             break;
