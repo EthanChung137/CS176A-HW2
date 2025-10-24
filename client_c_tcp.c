@@ -64,7 +64,16 @@ int main(int argc, char *argv[])
             break;
         }
 
-        //buffer[n] = '\0';
+        buffer[n] = '\0';
+
+        //Removing any '\r' characters due to its ability to "overwrite" the "From server: " message
+        int i, k = 0;
+        for (i = 0; buffer[i] != '\0'; i++) {
+            if (buffer[i] != '\r') {
+                buffer[k++] = buffer[i];
+            }
+        }
+        buffer[k] = '\0';
 
         printf("From server: %s", buffer);
         fflush(stdout);
