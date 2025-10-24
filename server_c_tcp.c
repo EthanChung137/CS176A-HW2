@@ -91,7 +91,7 @@
 
             char currMsg[130];
             strncpy(currMsg, buf, sizeof(currMsg) - 1);
-            currMsg[sizeof(currMsg) - 1] = '\0';
+            //currMsg[sizeof(currMsg) - 1] = '\0';
             
             while(1) {
                 const char* msg = msgToSum(currMsg);
