@@ -91,11 +91,13 @@
 
             char currMsg[130];
             strncpy(currMsg, buf, sizeof(currMsg) - 1);
-            currMsg[sizeof(currMsg)] = '\0';
+            currMsg[sizeof(currMsg)-1] = '\0';
             
             while(1) {
                 const char* msg = msgToSum(currMsg);
-                n = write(newsockfd, msg, strlen(msg));
+                char msgWithNewline[130];
+                snprintf(msgWithNewline, sizeof(msgWithNewline), "%s\n", msg);
+                n = write(newsockfd, msgWithNewline, strlen(msgWithNewline));
                 if (n < 0) {
                     error("ERROR writing to socket");
                 }
@@ -105,9 +107,8 @@
                 if (strlen(msg) == 1 && isdigit(msg[0])) {
                     break;
                 }
-                strncpy(currMsg, msg, sizeof(currMsg));
-                currMsg[sizeof(currMsg)] = '\n';
-                currMsg[sizeof(currMsg)+1] = '\0';
+                strncpy(currMsg, msg, sizeof(currMsg)-1);
+                currMsg[sizeof(currMsg)-1] = '\0';
             }
             memset(buf, 0, sizeof(buf));
             memset(currMsg, 0, sizeof(currMsg));
