@@ -106,6 +106,7 @@
                     break;
                 }
                 strncpy(currMsg, msg, sizeof(currMsg));
+                currMsg[sizeof(currMsg) - 1] = '\n';
                 currMsg[sizeof(currMsg)] = '\0';
             }
             memset(buf, 0, sizeof(buf));
