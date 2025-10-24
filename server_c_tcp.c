@@ -42,7 +42,7 @@
         sum += msg[i] - '0';
     }
 
-    snprintf(sumStr, sizeof(sumStr), "%d\n", sum);
+    snprintf(sumStr, sizeof(sumStr), "%d", sum);
     return sumStr;
     }
 
@@ -102,7 +102,7 @@
                 if (strncmp(msg, "Sorry, cannot compute!", 22) == 0) {
                     break;
                 }
-                if (strlen(msg) == 2 && isdigit(msg[0])) {
+                if (strlen(msg) == 1 && isdigit(msg[0])) {
                     break;
                 }
                 strncpy(currMsg, msg, sizeof(currMsg));
