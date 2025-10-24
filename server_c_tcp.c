@@ -95,7 +95,6 @@
             
             while(1) {
                 const char* msg = msgToSum(currMsg);
-                snprintf(msg, sizeof(msg), "%s\n", msg);
                 n = write(newsockfd, msg, strlen(msg));
                 if (n < 0) {
                     error("ERROR writing to socket");
@@ -103,7 +102,7 @@
                 if (strncmp(msg, "Sorry, cannot compute!", 22) == 0) {
                     break;
                 }
-                if (strlen(msg) == 2 && isdigit(msg[0])) {
+                if (strlen(msg) == 1 && isdigit(msg[0])) {
                     break;
                 }
                 strncpy(currMsg, msg, sizeof(currMsg));
