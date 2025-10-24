@@ -79,10 +79,11 @@ int main(int argc, char *argv[])
                     buffer[end+1] = '\0';
                     //Check breaking conditions based on what is actually printed
                     printf("From server: %s\n", &buffer[start]);
-                    // Check for terminal messages 
+
                     if (strncmp(&buffer[start], "Sorry, cannot compute!", 22) == 0) {
                         should_exit = 1;
                     } 
+                    
                     else if (strlen(&buffer[start]) == 1 && isdigit((unsigned char)buffer[start])) {
                         should_exit = 1;
                     }
