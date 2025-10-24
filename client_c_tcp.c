@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
 
         buffer[n] = '\0';
         int start = 0;
+        int should_exit = 0;
         for (int i = 0; i <= n; i++) {
             if (buffer[i] == '\n' || buffer[i] == '\0') {
                 int end = i - 1;
@@ -76,7 +77,14 @@ int main(int argc, char *argv[])
                 if (end >= start) {
                     char saved = buffer[end+1];
                     buffer[end+1] = '\0';
+                    //Check breaking conditions based on what is actually printed
                     printf("From server: %s\n", &buffer[start]);
+                    // Check for terminal messages 
+                    if (strncmp(&buffer[start], "Sorry, cannot compute!", 22) == 0) {
+                        should_exit = 1;
+                    } else if (strlen(&buffer[start]) == 1 && isdigit((unsigned char)buffer[start])) {
+                        should_exit = 1;
+                    }
                     buffer[end+1] = saved;
                 } else {
                     //Handling empty line case
@@ -86,13 +94,7 @@ int main(int argc, char *argv[])
                 start = i + 1;
             }
         }
-
-        if (strncmp(buffer, "Sorry, cannot compute!", 22) == 0) {
-            break;
-        }
-        if (strlen(buffer) == 2 && isdigit((unsigned char)buffer[0])) {
-            break;
-        }
+        if (should_exit) break;
     }
     close(sockfd);
     return 0;
