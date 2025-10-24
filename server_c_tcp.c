@@ -95,6 +95,7 @@
             
             while(1) {
                 const char* msg = msgToSum(currMsg);
+                snprintf(msg, sizeof(msg), "%s\n", msg);
                 n = write(newsockfd, msg, strlen(msg));
                 if (n < 0) {
                     error("ERROR writing to socket");
