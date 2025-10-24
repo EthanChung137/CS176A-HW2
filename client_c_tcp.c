@@ -87,10 +87,7 @@ int main(int argc, char *argv[])
                         should_exit = 1;
                     }
                     buffer[end+1] = saved;
-                } else {
-                    //Handling empty line case
-                    printf("From server:\n");
-                }
+                } 
                 fflush(stdout);
                 start = i + 1;
             }
